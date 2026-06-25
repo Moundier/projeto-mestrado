@@ -1,0 +1,67 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ../volumes/ollama_data:/root/.ollama
+    networks:
+      - webui_network
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/nvidia0:/dev/nvidia0
+      - /dev/nvidiactl:/dev/nvidiactl
+      - /dev/nvidia-uvm:/dev/nvidia-uvm
+    environment:
+      - LISTEN_ADDRESS=0.0.0.0
+
+  webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    ports:
+      - "3000:8080"
+    volumes:
+      - ../volumes/ollama_data:/root/.ollama
+    environment:
+      - WEBUI_AUTH=False
+    networks:
+      - webui_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  pgvector:
+    image: ankane/pgvector
+    container_name: pgvector
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ../volumes/pgvector_data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - pg_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin@gmail.com
+    ports:
+      - "5050:80"
+    networks:
+      - pg_network
+
+networks:
+  webui_network:
+    driver: bridge
+  pg_network:
+    driver: bridge
+
+volumes:
+  webui_data:
+  ollama_data:

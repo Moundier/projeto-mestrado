@@ -1,0 +1,12 @@
+Para Rodar
+# API (FastAPI)
+python run.py api        # http://localhost:8001
+
+# MCP Server
+python run.py mcp        # http://localhost:8002
+
+# Ambos
+python run.py both
+
+# Apenas carregar casos
+python run.py load

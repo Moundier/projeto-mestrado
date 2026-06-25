@@ -1,0 +1,8 @@
+O Laboratório de Computação Ubíqua, Móvel e Aplicada (LUMAC) da UFSM é um laboratório de
+pesquisa multidisciplinar focado no desenvolvimento de soluções tecnológicas, especialmente
+na área de computação aplicada à saúde, agricultura e gerenciamento de processos.
+
+Atuação e Plataformas
+O LUMAC atua principalmente no desenvolvimento de software e aplicativos (apps) 
+para resolver problemas reais, colaborando frequentemente com órgãos governamentais, como 
+a Secretaria da Agricultura, Pecuária, Produção Sustentável e Irrigação do RS (SEAPI/RS).
